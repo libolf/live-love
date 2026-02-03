@@ -36,8 +36,10 @@ export default async function handler(req, res) {
         ]);
 
     if (error) {
+        console.log("insert error");
         return res.status(500).json({ error: error.message });
     }
 
+    console.log("insert success");
     return res.status(200).json({ status: 'ok' });
 }
