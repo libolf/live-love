@@ -17,14 +17,17 @@ export default async function handler(req, res) {
     let isp = '未知';
 
     try {
-        const geoRes = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
-        const geoData = await geoRes.json();
-        if (geoData.status === 'success') {
-            location = `${geoData.country}-${geoData.regionName}-${geoData.city}`;
-            isp = geoData.isp;
+        // 使用你找的淘宝接口
+        const tbRes = await fetch(`https://ip.taobao.com/outGetIpInfo?ip=${ip}&accessKey=alibaba-inc`);
+        const tbData = await tbRes.json();
+
+        if (tbData.code === 0) {
+            const d = tbData.data;
+            location = `${d.region}-${d.city}`; // 山东-青岛
+            isp = d.isp; // 电信
         }
     } catch (e) {
-        console.error('Geo API error');
+        console.error('Taobao IP API error');
     }
 
     // 2. 存入 Supabase
