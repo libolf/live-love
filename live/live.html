@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="../assets/favicon.ico" sizes="any">
         <title>live</title>
     </head>
     <script>
@@ -14,4 +15,200 @@
             LIVE2
         </h1>
     </body>
+
+    <style>
+        .custom-footer {
+            text-align: center;
+            padding: 60px 24px 40px; /* 上下内边距调整，更透气 */
+            margin-top: 60px; /* 与内容区拉开更舒适的距离 */
+            position: relative; /* 为伪元素定位做准备 */
+            /*background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.01) 100%); !* 轻微背景渐变，增加层次感 *!*/
+        }
+
+        /* 优化渐变分隔线：更细腻、位置更精准 */
+        .custom-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 1px;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(0,0,0,0.08),
+            rgba(0,0,0,0.1),
+            rgba(0,0,0,0.08),
+            transparent);
+            /* 增加细微的光影效果 */
+            /*box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;*/
+        }
+
+        /*.footer-text {*/
+        /*    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;*/
+        /*    font-size: 14px; !* 字号更适中，避免过大 *!*/
+        /*    font-weight: 400;*/
+        /*    color: #777;*/
+        /*    margin-bottom: 28px;*/
+        /*    letter-spacing: 2px; !* 字间距微调，更精致 *!*/
+        /*    text-transform: uppercase;*/
+        /*    line-height: 1.2; !* 行高优化 *!*/
+        /*    opacity: 0.9; !* 轻微透感，更柔和 *!*/
+        /*}*/
+
+        .footer-text {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.2;
+
+            /* --- 流光效果核心代码 --- */
+            display: inline-block; /* 必须是 inline-block 效果才准 */
+            color: rgba(120, 120, 120, 0.6); /* 基础文字颜色（较暗） */
+
+            /* 创建一个从左到右的渐变：暗 -> 亮 -> 暗 */
+            background: linear-gradient(
+                    to right,
+                    rgba(120, 120, 120, 0.6) 0%,
+                    rgba(120, 120, 120, 0.6) 20%,
+                    #333 50%, /* 这就是那道“光”的颜色，深色模式下可以改用 #fff */
+                    rgba(120, 120, 120, 0.6) 80%,
+                    rgba(120, 120, 120, 0.6) 100%
+            );
+
+            background-size: 200% auto; /* 背景拉宽，方便滑动 */
+            -webkit-background-clip: text; /* 将背景裁剪到文字上 */
+            -webkit-text-fill-color: transparent; /* 将文字设为透明，露出背景 */
+
+            /* 运行动画：3秒一次，无限循环，线性播放 */
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* 定义流光动画：从右往左滑动背景 */
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        /* 深色模式下的流光颜色微调 */
+        @media (prefers-color-scheme: dark) {
+            .footer-text {
+                color: rgba(255, 255, 255, 0.2);
+                background: linear-gradient(
+                        to right,
+                        rgba(255, 255, 255, 0.2) 0%,
+                        rgba(255, 255, 255, 0.2) 40%,
+                        #fff 50%,
+                        rgba(255, 255, 255, 0.2) 60%,
+                        rgba(255, 255, 255, 0.2) 100%
+                );
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+            }
+        }
+
+        .badge-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* 间距调整，更舒展 */
+            flex-wrap: wrap;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .badge-group a {
+            /* 更自然的动效曲线 */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            line-height: 0;
+            display: inline-block; /* 确保transform生效 */
+            opacity: 0.95; /* 初始轻微透感 */
+        }
+
+        /* 增强hover交互：多层效果叠加 */
+        .badge-group a:hover {
+            transform: translateY(-4px) scale(1.03); /* 轻微缩放+上移 */
+            opacity: 1;
+            filter: brightness(1.08) drop-shadow(0 6px 12px rgba(0,0,0,0.08));
+        }
+
+        /* 徽章图片自适应 */
+        .badge-group img {
+            height: 38px; /* 统一徽章高度，更规整 */
+            width: auto;
+            border-radius: 4px; /* 轻微圆角，避免生硬 */
+        }
+
+        /* 深色模式优化：对比度更舒适，质感更强 */
+        @media (prefers-color-scheme: dark) {
+            .custom-footer {
+                background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.01) 100%);
+            }
+
+            .custom-footer::before {
+                background: linear-gradient(90deg,
+                transparent,
+                rgba(255,255,255,0.15),
+                rgba(255,255,255,0.2),
+                rgba(255,255,255,0.15),
+                transparent);
+                box-shadow: 0 1px 0 rgba(0,0,0,0.8) inset;
+            }
+
+            .footer-text {
+                color: #aaa;
+                opacity: 0.9;
+            }
+
+            .badge-group a:hover {
+                filter: brightness(1.15) drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+            }
+        }
+
+        /* 响应式优化：小屏幕适配 */
+        @media (max-width: 600px) {
+            .custom-footer {
+                padding: 40px 16px 30px;
+                margin-top: 40px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+                letter-spacing: 1.5px;
+                margin-bottom: 20px;
+            }
+
+            .badge-group {
+                gap: 15px;
+            }
+
+            .badge-group img {
+                height: 32px; /* 小屏幕缩小徽章 */
+            }
+
+            .badge-group a:hover {
+                transform: translateY(-3px) scale(1.02); /* 小屏幕弱化动效 */
+            }
+        }
+    </style>
+
+    <footer class="custom-footer">
+        <div class="footer-text">© 2026 Crafted with Passion</div>
+        <div class="badge-group">
+            <a href="https://github.com/libolf/live-love" target="_blank" rel="noopener">
+                <img src="https://img.shields.io/badge/Powered%20by-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+            </a>
+            <a href="https://vercel.com" target="_blank" rel="noopener">
+                <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel">
+            </a>
+            <a href="https://supabase.com" target="_blank" rel="noopener">
+                <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+            </a>
+        </div>
+    </footer>
+
 </html>
