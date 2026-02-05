@@ -475,6 +475,9 @@
         </footer>
 
         <script>
+            // 页面加载后自动调用 API 记录
+            fetch("/api/log").catch(err => console.log("Log skipped"));
+
             document.addEventListener('DOMContentLoaded', () => {
                 const player = document.getElementById('mainPlayer');
                 const btn = document.getElementById('startStop');
