@@ -3,11 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>love</title>
+        <title>LOVE</title>
     </head>
     <body>
         <h1>
             LOVE
         </h1>
+        <script>
+            // 页面加载后自动调用 API 记录
+            fetch("/api/log").catch(err => console.log("Log skipped"));
+        </script>
     </body>
 </html>

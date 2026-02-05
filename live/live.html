@@ -2,7 +2,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <title>Hi-Fi 精致黑胶唱机</title>
+        <title>LIVE</title>
         <style>
             :root {
                 --wood: #2c1e1a;
@@ -572,9 +572,7 @@
                     const blob = await response.blob();
                     const blobUrl = URL.createObjectURL(blob);
                     bgm.src = blobUrl; // 将内存地址赋给播放器
-                    console.log("音频已安全加载至内存，IDM 无法拦截");
                 } catch (e) {
-                    console.error("加载失败，请检查路径是否正确", e);
                 }
             }
         </script>
