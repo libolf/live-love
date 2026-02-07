@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>214情人节 · 程序员专属浪漫</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0a1a 0%, #1a0a2a 50%, #0f0a1a 100%);
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+        }
+
+        /* 粉色爱心 */
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d6d;
+            box-shadow: 
+                0 0 30px rgba(255, 77, 109, 0.5),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            cursor: default;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d6d;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -50px;
+        }
+
+        /* 更平缓的心跳动画 */
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(45deg) scale(1);
+                box-shadow: 
+                    0 0 30px rgba(255, 77, 109, 0.5),
+                    inset 0 0 10px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(45deg) scale(1.08);
+                box-shadow: 
+                    0 0 40px rgba(255, 77, 109, 0.7),
+                    inset 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        /* 修复文字效果 - 防止换行 */
+        .simple-typewriter {
+            margin: 40px auto;
+            max-width: 800px;
+            position: relative;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        #simple-text {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            text-align: center;
+            padding: 15px 25px;
+            font-weight: 300;
+            color: #f0f0f0;
+            position: relative;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            min-height: 60px;
+            vertical-align: middle;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        /* 优雅的文字装饰 */
+        .text-decoration {
+            position: absolute;
+            height: 1px;
+            width: 120px;
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 109, 0.4), transparent);
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.7;
+        }
+
+        .text-decoration.bottom {
+            top: auto;
+            bottom: -15px;
+        }
+
+        /* 固定光标位置 */
+        .simple-cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: rgba(255, 77, 109, 0.8);
+            animation: blink 1s infinite;
+            margin-left: 4px;
+            height: 1.6rem;
+            vertical-align: middle;
+            border-radius: 1px;
+            box-shadow: 0 0 8px rgba(255, 77, 109, 0.5);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* 简约的漂浮爱心 */
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.3);
+            font-size: 18px;
+            opacity: 0;
+            animation: float 20s linear infinite;
+        }
+
+        /* 简约的飘落动画 */
+        @keyframes float {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(calc(100px * var(--direction)), -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 重新设计的代码片段效果 - 采用用户提供的代码 */
+        .code-snippet {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(15, 10, 26, 0.85);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #c5c8c6;
+            max-width: 350px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            text-align: left;
+            z-index: 5;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .code-snippet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 77, 109, 0.5), transparent);
+        }
+
+        .code-snippet .keyword {
+            color: #cc7832;
+        }
+
+        .code-snippet .type {
+            color: #ffc66d;
+        }
+
+        .code-snippet .variable {
+            color: #9876aa;
+        }
+
+        .code-snippet .operator {
+            color: #a9b7c6;
+        }
+
+        .code-snippet .comment {
+            color: #629755;
+            font-style: italic;
+        }
+
+        .code-snippet .string {
+            color: #6a8759;
+        }
+
+        .code-snippet .number {
+            color: #6897bb;
+        }
+
+        .code-snippet .line {
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            #simple-text {
+                font-size: 1.4rem;
+            }
+            
+            .simple-cursor {
+                height: 1.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #simple-text {
+                font-size: 1.2rem;
+                padding: 10px 15px;
+                min-height: 50px;
+                white-space: normal;
+            }
+            
+            .simple-typewriter {
+                white-space: normal;
+            }
+            
+            .simple-cursor {
+                height: 1.2rem;
+            }
+            
+            .heart-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .heart, .heart:before, .heart:after {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .heart:before {
+                top: -40px;
+            }
+            
+            .heart:after {
+                left: -40px;
+            }
+            
+            .code-snippet {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #simple-text {
+                font-size: 1.1rem;
+                padding: 8px 12px;
+            }
+            
+            .simple-cursor {
+                height: 1.1rem;
+            }
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #8a7a99;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 77, 109, 0.2);
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        /* 简约的点击效果 */
+        .click-effect {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 77, 109, 0.5);
+            pointer-events: none;
+            z-index: 1000;
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart-container">
+            <div class="heart" id="main-heart"></div>
+        </div>
+        
+        <div class="simple-typewriter">
+            <div class="text-decoration"></div>
+            <div id="simple-text"></div>
+            <div class="text-decoration bottom"></div>
+        </div>
+    </div>
+    
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <div class="code-snippet">
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="keyword">for</span> (</div>
+        <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">time</span> = <span class="variable">now</span>;</div>
+        <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">time</span> >= <span class="variable">now</span>;</div>
+        <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">time</span> += <span class="variable">day</span></div>
+        <div class="line">)</div>
+        <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">love</span><span class="operator">++</span>;</div>
+        <div class="line">&nbsp;</div>
+    </div>
+    
+    <script>
+        // 打字机效果实现
+        class SimpleTypewriter {
+            constructor(elementId, message, speed = 90) {
+                this.element = document.getElementById(elementId);
+                this.message = message;
+                this.speed = speed;
+                this.currentCharIndex = 0;
+                this.isTyping = false;
+                this.timeoutId = null;
+                this.init();
+            }
+            
+            init() {
+                this.element.style.minHeight = '60px';
+                this.element.style.display = 'inline-block';
+                this.element.style.verticalAlign = 'middle';
+                this.element.style.whiteSpace = 'nowrap';
+                
+                setTimeout(() => this.typeMessage(), 800);
+            }
+            
+            typeMessage() {
+                this.isTyping = true;
+                
+                if (this.currentCharIndex < this.message.length) {
+                    const currentText = this.message.substring(0, this.currentCharIndex + 1);
+                    this.element.innerHTML = currentText + '<span class="simple-cursor"></span>';
+                    this.currentCharIndex++;
+                    this.timeoutId = setTimeout(() => this.typeMessage(), this.speed);
+                } else {
+                    this.isTyping = false;
+                    this.element.innerHTML = this.message + '<span class="simple-cursor"></span>';
+                }
+            }
+            
+            restart() {
+                clearTimeout(this.timeoutId);
+                this.currentCharIndex = 0;
+                this.isTyping = false;
+                this.element.innerHTML = '<span class="simple-cursor"></span>';
+                setTimeout(() => this.typeMessage(), 500);
+            }
+        }
+        
+        // 创建简约的漂浮爱心
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                
+                const left = Math.random() * 100;
+                const size = Math.random() * 10 + 12;
+                const delay = Math.random() * 20;
+                const duration = 15 + Math.random() * 15;
+                const direction = Math.random() > 0.5 ? 1 : -1;
+                
+                heart.style.left = `${left}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.setProperty('--direction', direction);
+                
+                const colors = [
+                    'rgba(255, 77, 109, 0.3)', 
+                    'rgba(255, 143, 163, 0.25)', 
+                    'rgba(255, 204, 213, 0.2)'
+                ];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.color = color;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // 创建点击涟漪效果
+        function createClickEffect(x, y) {
+            const effect = document.createElement('div');
+            effect.className = 'click-effect';
+            effect.style.left = `${x}px`;
+            effect.style.top = `${y}px`;
+            
+            document.body.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 600);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const message = "214情人节快乐 ❤️ 爱你不止今天，而是朝朝暮暮～";
+            const typewriter = new SimpleTypewriter('simple-text', message);
+            
+            createFloatingHearts();
+            
+            // 点击页面任意位置创建涟漪效果
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.heart')) {
+                    createClickEffect(event.clientX, event.clientY);
+                }
+            });
+            
+            // 添加键盘交互 - 只保留空格键功能
+            document.addEventListener('keydown', function(event) {
+                if (event.code === 'Space') {
+                    event.preventDefault();
+                    typewriter.restart();
+                }
+            });
+            
+            // 添加控制台提示
+            console.log('%c❤️ 214情人节快乐！', 'color: #ff8fa3; font-size: 16px; font-weight: bold;');
+            console.log('%c给你的专属浪漫代码已加载完成 💻', 'color: #ffccd5; font-size: 14px;');
+            
+            // 自动重新播放文字动画（每45秒）
+            setInterval(() => {
+                typewriter.restart();
+            }, 45000);
+        });
+        
+        // 确保页面不会出现滚动条
+        window.addEventListener('resize', function() {
+            document.body.style.height = window.innerHeight + 'px';
+            const textElement = document.getElementById('simple-text');
+            const typewriterContainer = document.querySelector('.simple-typewriter');
+            
+            if (window.innerWidth < 768) {
+                textElement.style.whiteSpace = 'normal';
+                typewriterContainer.style.whiteSpace = 'normal';
+            } else {
+                textElement.style.whiteSpace = 'nowrap';
+                typewriterContainer.style.whiteSpace = 'nowrap';
+            }
+        });
+        
+        // 初始设置
+        document.body.style.height = window.innerHeight + 'px';
+    </script>
+</body>
+</html>
