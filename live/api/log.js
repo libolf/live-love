@@ -31,6 +31,8 @@ export default async function handler(req, res) {
         console.error("Taobao IP API error");
     }
 
+    console.log("ip:" + ip + " location:" + location + " isp:" + isp + " ua:" + ua + " source:" + source);
+
     // 2. 存入 Supabase
     // 注意：Supabase 会自动处理 created_at，所以我们不用传时间
     const {error} = await supabase
